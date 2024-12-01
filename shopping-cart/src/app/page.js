@@ -1,6 +1,6 @@
 "use client";
 
-import Header from "./components/header";
+import Header from "./components/Header";
 import ProductList from "./components/ProductList";
 import Footer from "./components/Footer";
 import {useState} from "react";
@@ -17,12 +17,17 @@ export default function Home() {
   }
 
   const handleShowDetails = () => {
-      setShowDetails(true);
+    setShowDetails(true);
+  }
+
+  const handleShowCart = () => {
+    console.log("I AM HERE!");
+    setShowCart(true);
   }
 
   return (
     <>
-        <Header cartCount={cartCount} />
+        <Header cartCount={cartCount} handleShowCart = {handleShowCart}/>
         {showDetails && <ProductDetails/>}
         {showCart && <Cart/>}
         {!(showDetails || showCart) && <ProductList handleAddToCart={handleAddToCart} handleShowDetails={handleShowDetails}/>}
