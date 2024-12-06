@@ -1,4 +1,3 @@
-import { items } from "./Items";
 import Item from "./Item";
 
 export default function Renderer({items,

@@ -1,7 +1,8 @@
+"use-client";
 import React from "react";
 import { useState } from "react";
 
-export default function Header({cartCount}) {
+export default function Header({handleShowCart}) {
     const [ isMenuOpen,setIsMenuOpen]  = useState(false);
     const [ cartItems, setCartItems] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
@@ -30,14 +31,12 @@ export default function Header({cartCount}) {
 
     return (
         <>
-            <header
-                className='flex bg-white border-b py-4 sm:px-8 px-6 font-[sans-serif] min-h-[80px] tracking-wide relative z-50'>
+            <header className='flex bg-white border-b py-4 sm:px-8 px-6 font-[sans-serif] min-h-[80px] tracking-wide relative z-50'>
                 <div className='flex flex-wrap items-center lg:gap-y-2 gap-4 w-full'>
                     <a href="javascript:void(0)"><img src="https://readymadeui.com/readymadeui.svg" alt="logo" className='w-36'/>
                     </a>
 
-                    <div id="collapseMenu"
-                         className='lg:ml-10 max-lg:hidden lg:!block max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50'>
+                    <div id="collapseMenu" className='lg:ml-10 max-lg:hidden lg:!block max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50'>
                         <button onClick={toggleMenu} id="toggleClose" className='lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white p-3'>
                             <svg xmlns="http://www.w3.org/2000/svg" className="w-4 fill-black" viewBox="0 0 320.591 320.591">
                                 <path
@@ -48,11 +47,9 @@ export default function Header({cartCount}) {
                                     data-original="#000000"></path>
                             </svg>
                         </button>
-
-                        {isMenuOpen && (
+                         {isMenuOpen && (
                             <div id='menuOptions'>
-                                 <ul
-                                        className='lg:flex lg:gap-x-3 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50'>
+                                 <ul className='lg:flex lg:gap-x-3 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50'>
                                         <li className='mb-6 hidden max-lg:block'>
                                             <a href="javascript:void(0)"><img src="https://readymadeui.com/readymadeui.svg" alt="logo"
                                                                             className='w-36'/>
@@ -70,10 +67,11 @@ export default function Header({cartCount}) {
                                         <li className='max-lg:border-b max-lg:py-3 px-3'><a href='javascript:void(0)'
                                                                                             className='text-[#333] hover:text-[#007bff] text-[15px] block font-semibold'>Kids</a>
                                         </li>
-                                    
+
                                   </ul>
-                            <div>
-                        )}
+                            </div>
+                        )} 
+
                     </div>
 
                     <div className="flex gap-x-6 gap-y-4 ml-auto">
@@ -103,7 +101,7 @@ export default function Header({cartCount}) {
                 className="absolute left-auto -ml-1 top-0 rounded-full bg-red-500 px-1 py-0 text-xs text-white">1</span>
           </span>
 
-                            <span className="relative">
+          <span className="relative" onClick={handleShowCart}>
             <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
                  className="cursor-pointer fill-[#333] inline"
                  viewBox="0 0 512 512">
@@ -121,9 +119,9 @@ export default function Header({cartCount}) {
 
                             <button id="toggleOpen" className='lg:hidden'>
                                 <svg className="w-7 h-7" fill="#333" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
+                                    <path fillRule="evenodd"
                                           d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                                          clip-rule="evenodd"></path>
+                                          clipRule="evenodd"></path>
                                 </svg>
                             </button>
                         </div>
