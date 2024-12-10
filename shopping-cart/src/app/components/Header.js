@@ -1,23 +1,16 @@
 "use-client";
 import React from "react";
 import { useState } from "react";
+import { useCartSummary } from "./UseCartSummary";
 
-export default function Header({handleShowCart}) {
-    const [ isMenuOpen,setIsMenuOpen]  = useState(false);
-    const [ cartItems, setCartItems] = useState([]);
+export default function Header({handleShowCart, cartItems}) {
+    const [isMenuOpen,setIsMenuOpen]  = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
+    const {itemCount} = useCartSummary(cartItems);
 
     const toggleMenu = () =>{
        setIsMenuOpen(!isMenuOpen);
     };
-
-    const addToCart = (product) => {
-        setCartItems([...cartItems,product]);
-    };
-
-    const cartCount = () => {
-        return cartItems.length;
-    }
     
     const handleSearch = () => {
         const predefinedSearches = ["Veg Burger with Salad", "Spicy Veg Burger", "Veggie Burger", "The Best Chickpea Food"];
@@ -110,7 +103,7 @@ export default function Header({handleShowCart}) {
                   data-original="#000000"></path>
             </svg>
             <span
-                className="absolute left-auto -ml-1 top-0 rounded-full bg-red-500 px-1 py-0 text-xs text-white">{cartCount()}</span>
+                className="absolute left-auto -ml-1 top-0 rounded-full bg-red-500 px-1 py-0 text-xs text-white">{itemCount}</span>
           </span>
                             <button
                                 className='px-5 py-2 text-sm rounded-full text-white border-2 border-[#007bff] bg-[#007bff] hover:bg-[#004bff]'>Sign

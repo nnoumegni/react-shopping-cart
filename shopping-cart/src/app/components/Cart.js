@@ -1,55 +1,12 @@
 "use-client";
-import { useState } from "react";
-import { items } from "./Items";
 import Renderer from "./Renderer";
-import { forEachChild } from "typescript";
+import { useCartSummary } from "./UseCartSummary";
 
-export default function Cart() {
-  const [cartItems, setCartItems] = useState(items);
+export default function Cart({handleIncreaseCartItem, handleDecreaseCartItem, handleRemove, cartItems}) {
+  const {subtotal, total, tax, shipping, itemCount} = useCartSummary(cartItems);
   //"items" is the name of the placeholder array to test my cart. It can be replaced with another array.
   console.log("Cart items:", cartItems);
-  const handleRemove = (item) => {
-    setCartItems(cartItems.filter(cartItem => cartItem.product !== item.product));
-  };
-
-  const handleIncreaseCartItem = (item) => {
-    //Find the item in the cart array that matches the item just clicked. If found, recreates the array having that item with a higher quantity...
-    console.log("Increase item:", item);
-    const updatedCart = cartItems.map(cartItem => 
-      cartItem.product === item.product
-      ? {...cartItem, quantity: parseInt(cartItem.quantity) + 1} 
-      : cartItem,
-    );
-    setCartItems(updatedCart);
-  }
-
-  const handleDecreaseCartItem = (item) => {
-    console.log("Decrease item:", item);
-    const updatedCart = cartItems
-      .map(cartItem => 
-        cartItem.product === item.product
-          ? { ...cartItem, quantity: parseInt(cartItem.quantity) - 1 }
-          : cartItem
-      )
-      .filter(cartItem => cartItem.quantity > 0); // Remove items with quantity <= 0
-  
-    setCartItems(updatedCart);
-  };
-  
-
-  const itemCount = () => {
-    return cartItems.reduce((count, item) => count + parseInt(item.quantity), 0);
-  };
-
-  const calculateSubtotal = () => {
-    return cartItems.reduce((sum, item) => sum + parseInt(item.price), 0);
-  };
-
-  const shipping = 4.00;
-  const tax = 4.00;
-  const subtotal = calculateSubtotal();
-  const total = calculateSubtotal() + shipping + tax;
-  
+   
   {/*const itemCount = (items) => {
     let count = 0;
     items.forEach((item) => {
@@ -68,7 +25,7 @@ export default function Cart() {
               <h2 className="text-2xl font-bold text-gray-800 flex-1">
                 Shopping Cart
               </h2>
-              <h3 className="text-base text-gray-800">{`${itemCount()} Items`}</h3>
+              <h3 className="text-base text-gray-800">{`${itemCount} Items`}</h3>
             </div>
 
             <table className="mt-6 w-full boxrder-collapse divide-y">
